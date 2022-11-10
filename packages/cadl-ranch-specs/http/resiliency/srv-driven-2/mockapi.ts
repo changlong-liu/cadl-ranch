@@ -13,7 +13,7 @@ export const Scenarios: Record<string, ScenarioMockApi> = {};
  * GET. Otherwise Express would register the GET handler as the handler for both and the mockapi.head would be ignored.
  */
 Scenarios.DPGAddOptionalInput_NoParams = passOnSuccess(
-  mockapi.head("/servicedriven/parameters", (req) => {
+  mockapi.head("/resiliency/serviceDriven2/parameters", (req) => {
     return {
       status: 200,
       headers: { "content-length": "123" },
@@ -25,7 +25,7 @@ Scenarios.DPGAddOptionalInput_NoParams = passOnSuccess(
  * Initially only has one required Query Parameter. After evolution, a new optional query parameter is added.
  */
 Scenarios.DPGAddOptionalInput = passOnSuccess(
-  mockapi.get("/servicedriven/parameters", (req) => {
+  mockapi.get("/resiliency/serviceDriven2/parameters", (req) => {
     if (req.query["parameter"]) {
       return {
         status: 200,
@@ -44,7 +44,7 @@ Scenarios.DPGAddOptionalInput = passOnSuccess(
  * Initially has one required query parameter and one optional query parameter.  After evolution, a new optional query parameter is added
  */
 Scenarios.DPGAddOptionalInput_RequiredOptionalParam = passOnSuccess(
-  mockapi.put("/servicedriven/parameters", (req) => {
+  mockapi.put("/resiliency/serviceDriven2/parameters", (req) => {
     if (req.query["requiredParam"]) {
       return {
         status: 200,
@@ -63,7 +63,7 @@ Scenarios.DPGAddOptionalInput_RequiredOptionalParam = passOnSuccess(
  * Initially has one optional query parameter. After evolution, a new optional query parameter is added
  */
 Scenarios.DPGAddOptionalInput_OptionalParam = passOnSuccess(
-  mockapi.get("/serviceDriven/moreParameters", (req) => {
+  mockapi.get("/resiliency/serviceDriven2/moreParameters", (req) => {
     return {
       status: 200,
       body: json({ message: `An object was successfully returned` }),
@@ -75,7 +75,7 @@ Scenarios.DPGAddOptionalInput_OptionalParam = passOnSuccess(
  * A new body type is added (was JSON, and now JSON + JPEG).
  */
 Scenarios.DPGNewBodyTypeJSON = passOnSuccess(
-  mockapi.post("/servicedriven/parameters/json", (req) => {
+  mockapi.post("/resiliency/serviceDriven2/parameters/json", (req) => {
     switch (req.headers["content-type"]) {
       case "application/json":
         req.expect.bodyEquals({ url: "http://example.org/myimage.jpeg" });
@@ -90,7 +90,7 @@ Scenarios.DPGNewBodyTypeJSON = passOnSuccess(
  * A new body type is added (was JSON, and now JSON + JPEG).
  */
 Scenarios.DPGNewBodyTypeJPEG = passOnSuccess(
-  mockapi.post("/servicedriven/parameters/jpeg", (req) => {
+  mockapi.post("/resiliency/serviceDriven2/parameters/jpeg", (req) => {
     switch (req.headers["content-type"]) {
       case "image/jpeg":
         // req.expect.rawBodyEquals("binary");
@@ -105,7 +105,7 @@ Scenarios.DPGNewBodyTypeJPEG = passOnSuccess(
  * Initially the path exists but there is no delete method. After evolution this is a new method in a known path
  */
 Scenarios.DPGAddNewOperation = passOnSuccess(
-  mockapi.delete("/servicedriven/parameters", (req) => {
+  mockapi.delete("/resiliency/serviceDriven2/parameters", (req) => {
     return {
       status: 204,
     };
@@ -116,7 +116,7 @@ Scenarios.DPGAddNewOperation = passOnSuccess(
  * Initially neither path or method exist for this operation. After evolution, this is a new method in a new path
  */
 Scenarios.DPGAddNewPath = passOnSuccess(
-  mockapi.get("/servicedriven/newpath", (req) => {
+  mockapi.get("/resiliency/serviceDriven2/newpath", (req) => {
     return {
       status: 200,
       body: json({ message: `An object was successfully returned` }),
@@ -128,7 +128,7 @@ Scenarios.DPGAddNewPath = passOnSuccess(
  * An operation that is not part of the swagger definition but can be called
  */
 Scenarios.DPGGlassBreaker = passOnSuccess(
-  mockapi.get("/servicedriven/glassbreaker", (req) => {
+  mockapi.get("/resiliency/serviceDriven2/glassbreaker", (req) => {
     return {
       status: 200,
       body: json({ message: `An object was successfully returned` }),

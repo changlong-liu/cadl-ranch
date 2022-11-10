@@ -3,7 +3,7 @@ import { passOnSuccess, ScenarioMockApi, mockapi, json } from "@azure-tools/cadl
 export const Scenarios: Record<string, ScenarioMockApi> = {};
 
 Scenarios.GetRawModel = passOnSuccess(
-  mockapi.get("/customization/model/raw", (req) => {
+  mockapi.get("/resiliency/devdriven/customization/model/raw", (req) => {
     return {
       status: 200,
       body: json({ received: "raw" }),
@@ -12,7 +12,7 @@ Scenarios.GetRawModel = passOnSuccess(
 );
 
 Scenarios.GetHandwrittenModel = passOnSuccess(
-  mockapi.get("/customization/model/model", (req) => {
+  mockapi.get("/resiliency/devdriven/customization/model/model", (req) => {
     return {
       status: 200,
       body: json({ received: "model" }),
@@ -21,7 +21,7 @@ Scenarios.GetHandwrittenModel = passOnSuccess(
 );
 
 Scenarios.PostRawModel = passOnSuccess(
-  mockapi.post("/customization/model/raw", (req) => {
+  mockapi.post("/resiliency/devdriven/customization/model/raw", (req) => {
     req.expect.bodyEquals({ hello: `world!` });
     return {
       status: 200,
@@ -31,7 +31,7 @@ Scenarios.PostRawModel = passOnSuccess(
 );
 
 Scenarios.PostHandwrittenModel = passOnSuccess(
-  mockapi.post("/customization/model/model", (req) => {
+  mockapi.post("/resiliency/devdriven/customization/model/model", (req) => {
     req.expect.bodyEquals({ hello: `world!` });
     return {
       status: 200,
@@ -41,16 +41,16 @@ Scenarios.PostHandwrittenModel = passOnSuccess(
 );
 
 Scenarios.GetRawPages = passOnSuccess([
-  mockapi.get("/customization/paging/raw/", (req) => {
+  mockapi.get("/resiliency/devdriven/customization/paging/raw/", (req) => {
     return {
       status: 200,
       body: json({
         values: [{ received: "raw" }],
-        nextLink: req.baseUrl + "/customization/paging/raw/2",
+        nextLink: req.baseUrl + "/resiliency/devdriven/customization/paging/raw/2",
       }),
     };
   }),
-  mockapi.get("/customization/paging/raw/2", (req) => {
+  mockapi.get("/resiliency/devdriven/customization/paging/raw/2", (req) => {
     return {
       status: 200,
       body: json({ values: [{ received: "raw" }] }),
@@ -59,16 +59,16 @@ Scenarios.GetRawPages = passOnSuccess([
 ]);
 
 Scenarios.GetHandwrittenModelPages = passOnSuccess([
-  mockapi.get("/customization/paging/model/", (req) => {
+  mockapi.get("/resiliency/devdriven/customization/paging/model/", (req) => {
     return {
       status: 200,
       body: json({
         values: [{ received: "model" }],
-        nextLink: req.baseUrl + "/customization/paging/model/2",
+        nextLink: req.baseUrl + "/resiliency/devdriven/customization/paging/model/2",
       }),
     };
   }),
-  mockapi.get("/customization/paging/model/2", (req) => {
+  mockapi.get("/resiliency/devdriven/customization/paging/model/2", (req) => {
     return {
       status: 200,
       body: json({ values: [{ received: "model" }] }),
@@ -77,7 +77,7 @@ Scenarios.GetHandwrittenModelPages = passOnSuccess([
 ]);
 
 Scenarios.RawLRO = passOnSuccess(
-  mockapi.put("/customization/lro/raw", (req) => {
+  mockapi.put("/resiliency/devdriven/customization/lro/raw", (req) => {
     return {
       status: 200,
       body: json({ provisioningState: "Succeeded", received: "raw" }),
@@ -86,7 +86,7 @@ Scenarios.RawLRO = passOnSuccess(
 );
 
 Scenarios.HandwrittenModelLRO = passOnSuccess(
-  mockapi.put("/customization/lro/model", (req) => {
+  mockapi.put("/resiliency/devdriven/customization/lro/model", (req) => {
     return {
       status: 200,
       body: json({ provisioningState: "Succeeded", received: "model" }),
