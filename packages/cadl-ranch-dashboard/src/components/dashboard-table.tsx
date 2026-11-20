@@ -46,7 +46,6 @@ function buildTreeRows(
   }
   for (const [index, row] of rows.entries()) {
     row.index = index;
-    row.key = index.toString();
   }
   return rows;
 }
@@ -118,7 +117,7 @@ const ScenarioGroupStatusBox: FunctionComponent<ScenarioGroupStatusBoxProps> = (
 };
 
 function getCompletedRatio(scenarios: ScenarioData[], report: ResolvedCoverageReport, scope: string = "") {
-  const filtered = scenarios.filter((x) => x.name.startsWith(scope));
+  const filtered = scenarios.filter((x) => scope === "" || x.name === scope || x.name.startsWith(`${scope}_`));
   let coveredCount = 0;
   for (const scenario of filtered) {
     const status = report.results[scenario.name];

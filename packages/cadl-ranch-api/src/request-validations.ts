@@ -48,27 +48,24 @@ export const validateCoercedDateBodyEquals = (request: RequestExt, expectedBody:
 };
 
 export const validateBodyEmpty = (request: RequestExt): void => {
-  if (isBodyEmpty(request.rawBody)) {
-    if (request.body instanceof Buffer) {
-      if (request.body.length > 0) {
-        throw new ValidationError(BODY_NOT_EMPTY_ERROR_MESSAGE, undefined, request.rawBody);
-      }
-    }
-  } else {
-    throw new ValidationError(BODY_EMPTY_ERROR_MESSAGE, undefined, request.rawBody);
+  if (!isRequestBodyEmpty(request)) {
+    throw new ValidationError(BODY_NOT_EMPTY_ERROR_MESSAGE, undefined, request.rawBody);
   }
 };
 
 export const validateBodyNotEmpty = (request: RequestExt): void => {
-  if (isBodyEmpty(request.rawBody)) {
-    if (request.body instanceof Buffer) {
-      if (request.body.length === 0) {
-        throw new ValidationError(BODY_EMPTY_ERROR_MESSAGE, undefined, request.rawBody);
-      }
-    } else {
-      throw new ValidationError(BODY_EMPTY_ERROR_MESSAGE, undefined, request.rawBody);
-    }
+  if (isRequestBodyEmpty(request)) {
+    throw new ValidationError(BODY_EMPTY_ERROR_MESSAGE, undefined, request.rawBody);
   }
+};
+
+const isRequestBodyEmpty = (request: RequestExt): boolean => {
+  if (!isBodyEmpty(request.rawBody)) {
+    return false;
+  }
+
+  const body = request.body;
+  return body == null || body === "" || (Buffer.isBuffer(body) && body.length === 0);
 };
 
 /**
