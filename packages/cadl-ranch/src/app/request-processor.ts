@@ -48,7 +48,7 @@ const callHandler = async (
   func: MockRequestHandler,
 ): Promise<MockResponse | undefined> => {
   try {
-    return func(mockRequest);
+    return await func(mockRequest);
   } catch (e) {
     if (!(e instanceof ValidationError)) {
       throw e;

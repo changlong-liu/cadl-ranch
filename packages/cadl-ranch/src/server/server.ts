@@ -13,11 +13,7 @@ export interface MockApiServerConfig {
 const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
   logger.error("Error", err);
 
-  const errResponse = err.toJSON
-    ? err.toJSON()
-    : err instanceof Error
-    ? { name: err.name, message: err.message, stack: err.stack }
-    : err;
+  const errResponse = err.toJSON ? err.toJSON() : err instanceof Error ? { name: err.name, message: err.message } : err;
 
   res.status(err.status || 500);
   res.contentType("application/json").send(errResponse).end();
